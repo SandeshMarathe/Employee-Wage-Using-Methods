@@ -1,17 +1,24 @@
 public class EmployeeBuilderUC
 {
 	int IS_FULL_TIME=1;
+	int EMP_RATE_PER_HOUR=20;
 
-	public String checkPresentOrAbsent(int empCheck)
+	public int checkPresentOrAbsent(int empCheck)
 	{
+		int empHrs=0;
+		int empWage=0;
+
 		if (empCheck == IS_FULL_TIME)
 		{
-			return "Employee Is Present...";
+			empHrs=8;
 		}
 		else
 		{
-			return "Employee Is Absent...";
+			empHrs=0;
 		}
+		empWage = empHrs*EMP_RATE_PER_HOUR;
+
+		return empWage;
 
 	}
 
@@ -21,7 +28,7 @@ public class EmployeeBuilderUC
 		int empCheck =(int) Math.floor(Math.random() * 10) % 2;
 
 		EmployeeBuilderUC eb = new EmployeeBuilderUC();
-		System.out.println(eb.checkPresentOrAbsent(empCheck));
+		System.out.println("Emp Wage : "+eb.checkPresentOrAbsent(empCheck));
 
 	}
 }
