@@ -1,25 +1,24 @@
 public class EmployeeBuilderUC
 {
-	int IS_PART_TIME=1;
-	int IS_FULL_TIME=2;
-	int EMP_RATE_PER_HOUR=20;
+	public static final int IS_PART_TIME=1;
+	public static final int IS_FULL_TIME=2;
+	public static final int EMP_RATE_PER_HOUR=20;
 
 	public int checkPresentOrAbsent(int empCheck)
 	{
 		int empHrs=0;
 		int empWage=0;
 
-		if (empCheck == IS_PART_TIME)
+		switch (empCheck)
 		{
-			empHrs=4;
-		}
-		else if (empCheck == IS_FULL_TIME)
-		{
-			empHrs=8;
-		}
-		else
-		{
-			empHrs=0;
+			case IS_PART_TIME:
+					empHrs=4;
+					break;
+			case IS_FULL_TIME:
+					empHrs=8;
+					break;
+			default:
+					empHrs=0;
 		}
 		empWage = empHrs*EMP_RATE_PER_HOUR;
 
