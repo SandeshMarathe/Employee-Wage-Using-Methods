@@ -6,12 +6,14 @@ public class EmployeeBuilderUC
 	public static final int NUM_OF_WORKING_DAYS=20;
 	public static final int MAX_HRS_IN_MONTHS=100;
 
-	public void checkPresentOrAbsent()
+	public static int computeEmpWage()
 	{
+		//Variables
 		int empHrs=0;
 		int totalEmpHrs=0;
 		int totalWorkingDays=0;
 
+		//Computation
 		while (totalEmpHrs<=MAX_HRS_IN_MONTHS && totalWorkingDays<NUM_OF_WORKING_DAYS)
 		{
 
@@ -38,14 +40,12 @@ public class EmployeeBuilderUC
 
 		int totalEmpWage=totalEmpHrs*EMP_RATE_PER_HOUR;
 		System.out.println("total Emp Wage : "+totalEmpWage);
+
+		return totalEmpWage;
 	}
 
 	public static void main(String args[])
 	{
-
-
-		EmployeeBuilderUC eb = new EmployeeBuilderUC();
-		eb.checkPresentOrAbsent();
-
+		computeEmpWage();
 	}
 }
