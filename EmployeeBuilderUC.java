@@ -1,74 +1,71 @@
-public class EmployeeBuilderUC
-{
-	public static final int IS_PART_TIME=1;
-	public static final int IS_FULL_TIME=2;
+package com.bridgelabz.employeewagesmethods;
 
-	private static String company;
-	private static int empRatePerHour;
-	private static int numOfWorkingDays;
-	private static int maxHoursPerMonth;
-	private int totalEmpWage;
+public class EmployeeBuilderUC  {
 
-	public EmployeeBuilderUC (String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
-	{
+    public static final int IS_PART_TIME=1;
+    public static final int IS_FULL_TIME=2;
 
-		this.company = company;
-		this.empRatePerHour = empRatePerHour;
-		this.numOfWorkingDays = numOfWorkingDays;
-		this.maxHoursPerMonth = maxHoursPerMonth;
-	}
+    private int numOfCompany = 0;
+    private CompanyEmpWage[] companyEmpWagesArray;
 
-	public static int computeEmpWage()
-	{
-		//Variables
-		int empHrs=0;
-		int totalEmpHrs=0;
-		int totalWorkingDays=0;
-		int totalEmpWage=0;
+    public EmployeeBuilderUC () {
+        companyEmpWagesArray = new CompanyEmpWage[5];
+    }
 
-		//Computation
-		while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays)
-		{
+    private void addCompanyEmpWage (String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
 
-			totalWorkingDays++;
+        companyEmpWagesArray[numOfCompany] = new CompanyEmpWage(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
 
-			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+        numOfCompany++;
+    }
 
-			switch (empCheck)
-			{
-				case IS_PART_TIME:
-						empHrs = 4;
-						break;
-				case IS_FULL_TIME:
-						empHrs = 8;
-						break;
-				default:
-						empHrs = 0;
-						break;
-			}
+    private void computeEmpWage() {
 
-			totalEmpHrs += empHrs;
-			System.out.println("Day# :" + totalWorkingDays + "Emp Hrs: " + empHrs);
-		}
+        for (int i = 0; i < numOfCompany; i++) {
+            companyEmpWagesArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWagesArray[i]));
+            System.out.println(companyEmpWagesArray[i]);
+        }
+    }
 
-		totalEmpWage = totalEmpHrs * empRatePerHour;
-		return totalEmpWage;
-	}
+    private int computeEmpWage(CompanyEmpWage companyEmpWage) {
 
-	@Override
-	public String toString()
-	{
+        //Variables
+        int empHrs=0;
+        int totalEmpHrs=0;
+        int totalWorkingDays=0;
+        int totalEmpWage=0;
 
-		return "Total Emp Wage for Company : " + company + "is: " + totalEmpWage;
-	}
+        //Computation
+        while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays) {
 
-	public static void main(String args[])
-	{
-		EmployeeBuilderUC dMart = new EmployeeBuilderUC("DMart", 20, 2, 10);
-		EmployeeBuilderUC reliance = new EmployeeBuilderUC("Reliance", 10, 4, 20);
-		dMart.computeEmpWage();
-		System.out.println(dMart);
-		reliance.computeEmpWage();
-		System.out.println(reliance);
-	}
+            totalWorkingDays++;
+
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+
+            switch (empCheck) {
+                case IS_PART_TIME:
+                    empHrs = 4;
+                    break;
+                case IS_FULL_TIME:
+                    empHrs = 8;
+                    break;
+                default:
+                    empHrs = 0;
+                    break;
+            }
+
+            totalEmpHrs += empHrs;
+            System.out.println("Day# :" + totalWorkingDays + "Emp Hrs: " + empHrs);
+        }
+
+        return totalEmpHrs * companyEmpWage.empRatePerHour;
+    }
+
+    public static void main(String args[]) {
+        EmployeeBuilderUC employeeBuilderUC = new EmployeeBuilderUC();
+        employeeBuilderUC.addCompanyEmpWage("DMart", 20, 2, 10);
+        employeeBuilderUC.addCompanyEmpWage("Reliance", 10, 4, 20);
+        employeeBuilderUC.computeEmpWage();
+    }
+
 }
